@@ -64,7 +64,7 @@ def solovoystrassen(p, k):
 
 def main():
   n = int(input("n = "))
-  k = int(input("jumlah iterasi yang dilakukan = )"))
+  k = int(input("jumlah iterasi yang dilakukan = "))
   if solovoystrassen(n,k):
     print(n, "prima")
   else:
