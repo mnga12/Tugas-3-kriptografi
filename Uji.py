@@ -63,11 +63,12 @@ def solovoystrassen(p, k):
 
 
 def main():
-    for i in range(10**20, 10**30):
-        k = 4
-        true = solovoystrassen(i, k)
-        if true:
-            print(i, "prima")
+    n = int(input("n = ")
+    k = int(input("jumlah iterasi yang dilakukan = "
+    if solovoystrassen(n,k):
+        print(n, "prima")
+    else:
+        print(n, "komposit")
 
 
 main()
