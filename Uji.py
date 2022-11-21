@@ -9,41 +9,24 @@ def kalikuadrat(basis, pangkat, mod):
             x = (x * y) % mod
         y = (y * y) % mod
         pangkat //= 2
-    return x % mod
+    return x
 
 
-def jacobian(a, n):
+def jacobian(a, n):  # jacobian udah bener
     if a == 0:
-        return 0  # (0/n) = 0
+        return 0
     ans = 1
-    if a < 0:
-        # (a/n) = (-a/n)*(-1/n)
-        a = -a
-        if n % 4 == 3:
-            # (-1/n) = -1 jika n = 3 (mod 4)
-            ans = -ans
-    if a == 1:
-        return ans  # (1/n) = 1
     while a:
-        if a < 0:
-            # (a/n) = (-a/n)*(-1/n)
-            a = -a
-            if n % 4 == 3:
-                # (-1/n) = -1 jika n = 3 (mod 4)
-                ans = -ans
+        a = a % n
         while a % 2 == 0:
             a = a // 2
             if n % 8 == 3 or n % 8 == 5:
                 ans = -ans
-        # tukar a dengan n
-        a, n = n, a
-        if a % 4 == 3 and n % 4 == 3:
+        if a % 4 == 3 and n % 4 == 3:  # sifat 4 tukar a dengan n, (a/n) = -(a/n) jika a=n=3 mod 4
             ans = -ans
-        a = a % n
-        if a > n // 2:
-            a = a - n
-    if n == 1:
-        return ans
+        a, n = n, a
+        if n == 1:
+            return ans
     return 0
 
 
@@ -55,8 +38,9 @@ def solovoystrassen(p, k):
     for i in range(k):
         # generate bilangan random diantara 1 sampai p-1
         a = random.randrange(p - 1) + 1  # random.randrange(a) akan memberikan sebuah bilangan random bulat dari 0 sampai a-1.
-        hasil = (p + jacobian(a, p)) % p
-        mod = kalikuadrat(a, (p - 1) / 2, p)
+        hasil = jacobian(a, p)
+        mod = kalikuadrat(a, (p - 1)/2, p)
+        print(a,hasil,mod)
         if hasil == 0 or mod != hasil:
             return False
     return True
@@ -64,11 +48,10 @@ def solovoystrassen(p, k):
 
 def main():
   n = int(input("n = "))
-  k = int(input("jumlah iterasi yang dilakukan = "))
+  k = 100
   if solovoystrassen(n,k):
     print(n, "prima")
   else:
     print(n, "komposit")
-
 
 main()
