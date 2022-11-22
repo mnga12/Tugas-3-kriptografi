@@ -39,12 +39,13 @@ def solovoystrassen(p, k):
         # generate bilangan random diantara 1 sampai p-1
         a = random.randrange(p - 1) + 1  # random.randrange(a) akan memberikan sebuah bilangan random bulat dari 0 sampai a-1.
         hasil = jacobian(a, p)
-        mod = kalikuadrat(a, (p - 1)/2, p)
+        mod = kalikuadrat(a, (p - 1)//2, p)
+        if p-mod == 1:
+            mod = -1
         print(a,hasil,mod)
         if hasil == 0 or mod != hasil:
             return False
     return True
-
 
 def main():
   n = int(input("n = "))
